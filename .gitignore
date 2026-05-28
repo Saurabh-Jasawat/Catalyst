@@ -22,3 +22,7 @@ frontend/.env
 Thumbs.db
 desktop.ini
 *.log
+
+# Documentation and HTML files
+Documentation/
+*.html
