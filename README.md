@@ -1,0 +1,1 @@
+Catalyst empowers users to visualize, track, and optimize their preparation journey through spaced repetition, custom study logs, mock exam analysis, past-year papers analysis, and a structured syllabus database.
