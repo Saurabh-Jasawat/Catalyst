@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Description - Catalyst Study Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --primary: #4f46e5;
+    --primary-light: #e0e7ff;
+    --dark: #0f172a;
+    --light: #f8fafc;
+    --border: #e2e8f0;
+    --text-main: #334155;
+    --text-muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    background-color: var(--light);
+    line-height: 1.6;
+    padding: 50px;
+  }
+  .doc-container {
+    max-width: 850px;
+    margin: 0 auto;
+    background: white;
+    padding: 60px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.05);
+    border: 1px solid var(--border);
+  }
+  .title-page {
+    text-align: center;
+    border-bottom: 3px double var(--border);
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+  }
+  .title-page h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .title-page p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-top: 35px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+  }
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  p { margin-bottom: 15px; text-align: justify; }
+  ul, ol { margin-bottom: 20px; padding-left: 20px; }
+  li { margin-bottom: 8px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  th, td {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 0.9rem;
+  }
+  th { background-color: var(--light); font-weight: 700; }
+  .grid-2 {
+    display: grid;
+    grid-template-cols: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .grid-card {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  @media print {
+    body { padding: 0; background: white; }
+    .doc-container { box-shadow: none; border: none; padding: 0; }
+    h2, h3 { page-break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+  <div class="doc-container">
+    <div class="title-page">
+      <h1>Project Description Document</h1>
+      <p>Technical Details, Modules, Database Schema, and Flow Architecture</p>
+    </div>
+
+    <h2>1. Detailed Module Descriptions</h2>
+    
+    <h3>1.1 User Authentication & Security Module</h3>
+    <p>
+      Protects access to study workspaces. Supports signup, login, JWT token generation, auth route guards, and email OTP verification. When requesting a password reset, a 6-digit code is dispatched to the user's Gmail using Nodemailer SMTP. Once validated, the backend cryptographically updates the password using bcrypt.
+    </p>
+
+    <h3>1.2 Syllabus Tracking Module</h3>
+    <p>
+      Maps subjects, topics, and subtopics into a progress matrix. Users can toggle status across five preparation stages: <em>Foundation, Practice, Revision, Mock Test,</em> and <em>Completed</em>. Each stage update recalculates overall percentages and awards XP.
+    </p>
+
+    <h3>1.3 Spaced Repetition Revision Module</h3>
+    <p>
+      Calculates next revision dates automatically based on intervals (e.g. 1 day, 3 days, 7 days, 30 days) once a user logs a review session. It surfaces overdue topics directly on the Spaced Repetition queue.
+    </p>
+
+    <h3>1.4 PYQ Analysis & Notes Module</h3>
+    <p>
+      Logs past year question paper scores, attempt status, and error logs. Users can directly record general notes, formula lists, and common traps (mistakes register) for subtopics, linking syllabus theory to practice.
+    </p>
+
+    <h3>1.5 Dashboard Metrics & Planner Module</h3>
+    <p>
+      Features overall statistics widgets, interactive countdowns (D-Day phases), target scores, daily task checklists, and a study hours chart showing logs across past days.
+    </p>
+
+    <h2>2. Technical Rationale & Design Choices</h2>
+    <ul>
+      <li><strong>React Context API:</strong> Used for global state management to prevent prop drilling and keep active exam details, authentication data, and user profiles synchronized.</li>
+      <li><strong>Keystroke Debouncing (1s):</strong> Throttles HTTP PUT requests during active typing, reducing write operations on MongoDB to secure connection pools.</li>
+      <li><strong>Mongoose Models & Schema:</strong> Models user, exam, and backup profiles, enforcing structured types and relational index constraints (such as compound unique index on <code>userId</code> and <code>examName</code>).</li>
+    </ul>
+
+    <h2>3. Database Design (MongoDB Collection Schemas)</h2>
+    
+    <h3>3.1 User Schema (users)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Field Name</th>
+          <th>Data Type</th>
+          <th>Constraint / Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>name</td>
+          <td>String</td>
+          <td>Required, trimmed name</td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>String</td>
+          <td>Required, unique index, lowercase</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>Required, bcrypt hash</td>
+        </tr>
+        <tr>
+          <td>enrolledExams</td>
+          <td>Array of Strings</td>
+          <td>Default: ['UPSC CSE']</td>
+        </tr>
+        <tr>
+          <td>resetCode</td>
+          <td>String</td>
+          <td>Default: null (used for password reset OTP)</td>
+        </tr>
+        <tr>
+          <td>resetCodeExpires</td>
+          <td>Date</td>
+          <td>Default: null (OTP expiry timestamp)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3.2 ExamData Schema (examdatas)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Field Name</th>
+          <th>Data Type</th>
+          <th>Constraint / Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>userId</td>
+          <td>ObjectId</td>
+          <td>Ref: User model (foreign relation)</td>
+        </tr>
+        <tr>
+          <td>examName</td>
+          <td>String</td>
+          <td>Required, matches active track</td>
+        </tr>
+        <tr>
+          <td>streak</td>
+          <td>Number</td>
+          <td>Default: 1</td>
+        </tr>
+        <tr>
+          <td>points (XP)</td>
+          <td>Number</td>
+          <td>Default: 250</td>
+        </tr>
+        <tr>
+          <td>syllabusData</td>
+          <td>Array of Subjects</td>
+          <td>Enforces nested topic and subtopic arrays</td>
+        </tr>
+        <tr>
+          <td>pyqPapers</td>
+          <td>Array of Papers</td>
+          <td>Stores custom and template papers list</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>4. System Data Flow Pipeline</h2>
+    <ol>
+      <li><strong>User Mutation Event:</strong> User completes a topic or adds a note. React state variables are immediately updated in <code>AppContext</code>.</li>
+      <li><strong>Debounce Window:</strong> The system waits for the user to stop editing for 1 second.</li>
+      <li><strong>Network Request:</strong> The client triggers HTTP PUT request to <code>/api/exam/:examName</code> including the updated state payload in the JSON body.</li>
+      <li><strong>Authentication Validation:</strong> Express router invokes JWT auth middleware to verify authorization headers.</li>
+      <li><strong>Database Transaction:</strong> Mongoose processes a <code>findOneAndUpdate</code> query with upsert enabled, writing the document to MongoDB.</li>
+    </ol>
+  </div>
+</body>
+</html>
