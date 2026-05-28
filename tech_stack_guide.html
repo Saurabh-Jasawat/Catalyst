@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catalyst Study Tracker - Technology Stack & Visual Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #e0e7ff;
+      --accent: #10b981;
+      --accent-light: #d1fae5;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --dark: #0f172a;
+      --dark-card: #1e293b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --text-main: #334155;
+      --text-muted: #64748b;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      background-color: #f1f5f9;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      padding: 60px 80px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border);
+    }
+    
+    /* Cover Header Styling */
+    header {
+      border-bottom: 2px dashed var(--border);
+      padding-bottom: 40px;
+      margin-bottom: 50px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .logo-container {
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 15px;
+      letter-spacing: -0.5px;
+    }
+    
+    header h1 span {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* Section Headings */
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-top: 50px;
+      margin-bottom: 25px;
+      border-left: 6px solid var(--primary-dark);
+      padding-left: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--dark-card);
+      margin-top: 30px;
+      margin-bottom: 12px;
+    }
+    
+    p {
+      margin-bottom: 20px;
+      text-align: justify;
+      color: var(--text-main);
+      font-size: 1rem;
+    }
+    
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    
+    th, td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    
+    th {
+      background-color: var(--dark);
+      font-weight: 700;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: var(--light);
+    }
+    
+    /* Badges & Tags */
+    .tag {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      white-space: nowrap;
+    }
+    
+    .tag.backend {
+      background-color: var(--warning-light);
+      color: #92400e;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+    
+    .tag.style {
+      background-color: var(--accent-light);
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    
+    /* Diagram Layouts */
+    .diagram-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 35px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: inset 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    
+    .diagram-caption {
+      margin-top: 15px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      width: 100%;
+    }
+    
+    /* Code Blocks */
+    .code-container {
+      background: var(--dark);
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 15px 0 25px 0;
+      border: 1px solid #1e293b;
+      box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .code-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: -10px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 6px;
+    }
+    
+    .code-title span.path {
+      color: #a5b4fc;
+    }
+    
+    .keyword { color: #f472b6; }
+    .string { color: #34d399; }
+    .function { color: #60a5fa; }
+    .comment { color: #94a3b8; font-style: italic; }
+    .number { color: #fbbf24; }
+    
+    /* Grid details */
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    
+    .details-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    }
+    
+    .details-card h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .visual-pill {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: auto;
+    }
+    
+    .bullet-list {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .bullet-list li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    
+    /* Interactive Highlight Box */
+    .highlight-box {
+      background-color: #f0fdf4;
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    
+    .highlight-box h4 {
+      color: #065f46;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .highlight-box p {
+      color: #047857;
+      margin-bottom: 0;
+    }
+    
+    /* Page Break for PDF rendering */
+    @media print {
+      body {
+        padding: 0;
+        background: white;
+        color: black;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .diagram-card, table, .code-container, .details-card {
+        page-break-inside: avoid;
+      }
+      h2, h3 {
+        page-break-after: avoid;
+      }
+      th {
+        background-color: #1e293b !important;
+        color: white !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">CATALYST</div>
+      <h1>MERN Study Tracker <span>.</span></h1>
+      <p>A Complete Technical Breakdown of Stack Frameworks, Backend Libraries, Visual Interfaces, and State Pipelines</p>
+    </header>
+
+    <h2>1. System Architecture & End-to-End Handshake</h2>
+    <p>
+      The Catalyst Study Tracker is engineered as a decoupled single-page application built on the classic MERN (MongoDB, Express, React, Node.js) stack. The frontend compiles into modular, optimized bundles via Vite, communicating with the headless Express API on port 5000 using asynchronous network requests.
+    </p>
+
+    <div class="diagram-card">
+      <svg width="850" height="340" viewBox="0 0 850 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Client Layer (React) -->
+        <rect x="20" y="40" width="200" height="260" rx="12" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2" />
+        <rect x="35" y="55" width="170" height="35" rx="6" fill="#4f46e5" />
+        <text x="120" y="77" font-family="'Outfit'" font-size="12" font-weight="800" text-anchor="middle" fill="#ffffff">Client (Vite + React)</text>
+        
+        <rect x="35" y="105" width="170" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="50" y="124" font-family="'JetBrains Mono'" font-size="9" font-weight="600" fill="#334155">Dashboard.jsx (UI)</text>
+        
+        <rect x="35" y="145" width="170" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="50" y="164" font-family="'JetBrains Mono'" font-size="9" font-weight="600" fill="#334155">SyllabusTracker.jsx</text>
+        
+        <rect x="35" y="185" width="170" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="50" y="204" font-family="'JetBrains Mono'" font-size="9" font-weight="600" fill="#334155">Login.jsx (Auth Forms)</text>
+
+        <rect x="35" y="225" width="170" height="55" rx="6" fill="#f8fafc" stroke="#6366f1" stroke-dasharray="3 3" />
+        <text x="120" y="243" font-family="'Outfit'" font-size="10" font-weight="bold" text-anchor="middle" fill="#4f46e5">Client State Stores</text>
+        <text x="120" y="258" font-family="'JetBrains Mono'" font-size="8" text-anchor="middle" fill="#64748b">React.useState + Context</text>
+
+        <!-- Network Bridge (HTTP / Axios) -->
+        <path d="M 220 120 L 320 120" stroke="#6366f1" stroke-width="2.5" stroke-dasharray="4 4" />
+        <polygon points="325,120 315,115 315,125" fill="#6366f1" />
+        <text x="270" y="110" font-family="'Outfit'" font-size="9" font-weight="700" text-anchor="middle" fill="#6366f1">AJAX / JSON</text>
+        
+        <path d="M 320 220 L 225 220" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4 4" />
+        <polygon points="220,220 230,225 230,215" fill="#f59e0b" />
+        <text x="270" y="240" font-family="'Outfit'" font-size="9" font-weight="700" text-anchor="middle" fill="#f59e0b">Payload Response</text>
+
+        <!-- API Server Layer (Node + Express) -->
+        <rect x="330" y="40" width="260" height="260" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="2" />
+        <rect x="345" y="55" width="230" height="35" rx="6" fill="#f59e0b" />
+        <text x="460" y="77" font-family="'Outfit'" font-size="12" font-weight="800" text-anchor="middle" fill="#ffffff">Node.js + Express Server</text>
+
+        <!-- Express Router routes -->
+        <rect x="345" y="105" width="105" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="355" y="123" font-family="'JetBrains Mono'" font-size="8" font-weight="700" fill="#b45309">/api/auth</text>
+
+        <rect x="470" y="105" width="105" height="30" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="480" y="123" font-family="'JetBrains Mono'" font-size="8" font-weight="700" fill="#b45309">/api/exam</text>
+
+        <!-- Middlewares / Handlers -->
+        <rect x="345" y="145" width="230" height="40" rx="6" fill="#fef3c7" stroke="#fbbf24" />
+        <text x="460" y="160" font-family="'Outfit'" font-size="9" font-weight="bold" text-anchor="middle" fill="#78350f">Auth Guard Middleware</text>
+        <text x="460" y="174" font-family="'JetBrains Mono'" font-size="8" text-anchor="middle" fill="#92400e">jsonwebtoken (JWT Decryption)</text>
+
+        <!-- Utility engines -->
+        <rect x="345" y="195" width="110" height="35" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="400" y="210" font-family="'Outfit'" font-size="9" font-weight="bold" text-anchor="middle" fill="#78350f">Nodemailer</text>
+        <text x="400" y="222" font-family="'Outfit'" font-size="7" text-anchor="middle" fill="#64748b">SMTP Engine (OTP)</text>
+
+        <rect x="465" y="195" width="110" height="35" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="520" y="210" font-family="'Outfit'" font-size="9" font-weight="bold" text-anchor="middle" fill="#78350f">bcryptjs</text>
+        <text x="520" y="222" font-family="'Outfit'" font-size="7" text-anchor="middle" fill="#64748b">Salt-Hash Hashers</text>
+
+        <rect x="345" y="240" width="230" height="45" rx="4" fill="#ffffff" stroke="#cbd5e1" />
+        <text x="460" y="258" font-family="'Outfit'" font-size="10" font-weight="bold" text-anchor="middle" fill="#1e1b4b">Database Layer (ODM)</text>
+        <text x="460" y="272" font-family="'JetBrains Mono'" font-size="8" text-anchor="middle" fill="#64748b">mongoose (Query Builder)</text>
+
+        <!-- Mongoose - Mongo connection -->
+        <path d="M 590 170 L 650 170" stroke="#10b981" stroke-width="2.5" />
+        <polygon points="655,170 645,165 645,175" fill="#10b981" />
+        <text x="620" y="160" font-family="'Outfit'" font-size="9" font-weight="700" text-anchor="middle" fill="#10b981">BSON Drivers</text>
+
+        <!-- Database (MongoDB) -->
+        <rect x="660" y="40" width="170" height="260" rx="12" fill="#d1fae5" stroke="#10b981" stroke-width="2" />
+        <rect x="675" y="55" width="140" height="35" rx="6" fill="#10b981" />
+        <text x="745" y="77" font-family="'Outfit'" font-size="12" font-weight="800" text-anchor="middle" fill="#ffffff">MongoDB Engine</text>
+
+        <path d="M 685 130 C 685 105, 805 105, 805 130 C 805 155, 685 155, 685 130" fill="#ffffff" stroke="#10b981" stroke-width="1.5" />
+        <text x="745" y="134" font-family="'Outfit'" font-size="9" font-weight="bold" text-anchor="middle" fill="#047857">users Collection</text>
+        
+        <path d="M 685 190 C 685 165, 805 165, 805 190 C 805 215, 685 215, 685 190" fill="#ffffff" stroke="#10b981" stroke-width="1.5" />
+        <text x="745" y="194" font-family="'Outfit'" font-size="9" font-weight="bold" text-anchor="middle" fill="#047857">examdatas Collection</text>
+
+        <path d="M 685 250 C 685 225, 805 225, 805 250 C 805 275, 685 275, 685 250" fill="#ffffff" stroke="#10b981" stroke-width="1.5" />
+        <text x="745" y="254" font-family="'Outfit'" font-size="9" font-weight="bold" text-anchor="middle" fill="#047857">snapshots Collection</text>
+      </svg>
+      <div class="diagram-caption">
+        Figure 1.2: End-to-End Data Pipeline from UI State Renderers to Database Collections.
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>2. Visual Wireframe Mockups & Live Package Pointers</h2>
+    <p>
+      The diagrams below illustrate the visual layout of the Catalyst web application interface, demonstrating the direct UI changes produced by the underlying libraries.
+    </p>
+
+    <h3>2.1 Authentication & Password Reset Workspace (Login.jsx)</h3>
+    <p>
+      The password recovery panel updates reactively based on UI states. Clicking "Forgot Password" updates React state, changing the inputs dynamically.
+    </p>
+
+    <div class="diagram-card">
+      <svg width="850" height="340" viewBox="0 0 850 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Mockup Frame -->
+        <rect x="20" y="10" width="810" height="320" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="3" />
+        
+        <!-- Screen Split Left (Auth Form) -->
+        <rect x="50" y="30" width="340" height="280" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+        <rect x="80" y="50" width="280" height="30" rx="4" fill="#f1f5f9" />
+        <circle cx="95" cy="65" r="6" fill="#ef4444" />
+        <circle cx="115" cy="65" r="6" fill="#f59e0b" />
+        <circle cx="135" cy="65" r="6" fill="#10b981" />
+        <text x="350" y="70" font-family="'Outfit'" font-size="10" font-weight="bold" text-anchor="end" fill="#64748b">Secure HTTPS Node</text>
+
+        <text x="80" y="115" font-family="'Outfit'" font-size="18" font-weight="900" fill="#0f172a">Reset Password</text>
+        <text x="80" y="135" font-family="'Inter'" font-size="9" fill="#64748b">An active 6-digit code has been dispatched to your email</text>
+
+        <!-- OTP code boxes -->
+        <rect x="80" y="160" width="35" height="35" rx="6" stroke="#4f46e5" stroke-width="2" fill="#ffffff" />
+        <text x="97" y="183" font-family="'JetBrains Mono'" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">5</text>
+        <rect x="125" y="160" width="35" height="35" rx="6" stroke="#4f46e5" stroke-width="2" fill="#ffffff" />
+        <text x="142" y="183" font-family="'JetBrains Mono'" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">8</text>
+        <rect x="170" y="160" width="35" height="35" rx="6" stroke="#4f46e5" stroke-width="2" fill="#ffffff" />
+        <text x="187" y="183" font-family="'JetBrains Mono'" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">7</text>
+        <rect x="215" y="160" width="35" height="35" rx="6" stroke="#cbd5e1" stroke-width="1" fill="#ffffff" />
+        <rect x="260" y="160" width="35" height="35" rx="6" stroke="#cbd5e1" stroke-width="1" fill="#ffffff" />
+        <rect x="305" y="160" width="35" height="35" rx="6" stroke="#cbd5e1" stroke-width="1" fill="#ffffff" />
+
+        <!-- New password inputs -->
+        <rect x="80" y="210" width="280" height="30" rx="6" stroke="#cbd5e1" stroke-width="1" fill="#ffffff" />
+        <text x="95" y="228" font-family="'Inter'" font-size="9" fill="#94a3b8">New Password (Min 6 characters)</text>
+
+        <!-- Submit Button -->
+        <rect x="80" y="255" width="280" height="35" rx="8" fill="#4f46e5" />
+        <text x="220" y="277" font-family="'Outfit'" font-size="11" font-weight="bold" text-anchor="middle" fill="#ffffff">Verify & Set Password</text>
+
+        <!-- Annotations Right (Explanation details) -->
+        <rect x="420" y="30" width="380" height="280" rx="12" fill="#0f172a" stroke="#1e293b" />
+        <text x="440" y="60" font-family="'Outfit'" font-size="14" font-weight="bold" fill="#60a5fa">Visual Layout Indicators</text>
+        
+        <!-- Callout 1 -->
+        <circle cx="445" cy="95" r="4" fill="#a7f3d0" />
+        <text x="460" y="99" font-family="'Inter'" font-size="9.5" fill="#e2e8f0" font-weight="bold">Tailwind CSS (Borders & Alerts):</text>
+        <text x="460" y="114" font-family="'Inter'" font-size="9" fill="#94a3b8">Renders high-contrast indigo rings around inputs and glass cards.</text>
+
+        <!-- Callout 2 -->
+        <circle cx="445" cy="145" r="4" fill="#c7d2fe" />
+        <text x="460" y="149" font-family="'Inter'" font-size="9.5" fill="#e2e8f0" font-weight="bold">React useState Hooks:</text>
+        <text x="460" y="164" font-family="'Inter'" font-size="9" fill="#94a3b8">Binds keypress events. Shifting from Step 1 to Step 2 replaces views.</text>
+
+        <!-- Callout 3 -->
+        <circle cx="445" cy="195" r="4" fill="#fef3c7" />
+        <text x="460" y="199" font-family="'Inter'" font-size="9.5" fill="#e2e8f0" font-weight="bold">Nodemailer Dispatch Fallback:</text>
+        <text x="460" y="214" font-family="'Inter'" font-size="9" fill="#94a3b8">If SMTP is offline, a warning box displays the generated OTP code.</text>
+
+        <!-- Callout 4 -->
+        <circle cx="445" cy="245" r="4" fill="#fbcfe8" />
+        <text x="460" y="249" font-family="'Inter'" font-size="9.5" fill="#e2e8f0" font-weight="bold">BcryptJS Security Hasher:</text>
+        <text x="460" y="264" font-family="'Inter'" font-size="9" fill="#94a3b8">Salts and hashes password inputs before pushing to Mongo databases.</text>
+      </svg>
+      <div class="diagram-caption">
+        Figure 2.2: User Interface Wireframe mapping for verification forms.
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h3>2.2 Main Performance Dashboard (Dashboard.jsx)</h3>
+    <p>
+      The primary analytics control panel consolidates the user's statistics, daily goals, and performance graphs into cards. Recharts maps the study database snapshots into interactive SVG paths.
+    </p>
+
+    <div class="diagram-card">
+      <svg width="850" height="380" viewBox="0 0 850 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shell Browser Frame -->
+        <rect x="10" y="10" width="830" height="360" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+        
+        <!-- Sidebar Navigation -->
+        <rect x="10" y="10" width="160" height="360" rx="12" fill="#0f172a" />
+        <text x="30" y="45" font-family="'Outfit'" font-size="14" font-weight="900" fill="#6366f1">CATALYST</text>
+        
+        <!-- Navigation Buttons -->
+        <rect x="20" y="80" width="140" height="28" rx="6" fill="#1e293b" />
+        <text x="45" y="97" font-family="'Outfit'" font-size="10.5" fill="#ffffff" font-weight="bold">🏠 Dashboard</text>
+        <text x="45" y="132" font-family="'Outfit'" font-size="10.5" fill="#94a3b8">📚 Syllabus Tracker</text>
+        <text x="45" y="167" font-family="'Outfit'" font-size="10.5" fill="#94a3b8">📅 Study Planner</text>
+        <text x="45" y="202" font-family="'Outfit'" font-size="10.5" fill="#94a3b8">📝 Notes Workspace</text>
+        
+        <!-- Main Area -->
+        <!-- Header Ribbon -->
+        <rect x="170" y="10" width="670" height="55" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+        <text x="190" y="43" font-family="'Outfit'" font-size="15" font-weight="bold" fill="#0f172a">Welcome Back, Aspirant</text>
+        
+        <!-- Streak indicators -->
+        <rect x="580" y="20" width="105" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" />
+        <text x="632" y="38" font-family="'Inter'" font-size="10" font-weight="bold" text-anchor="middle" fill="#78350f">🔥 5 Day Streak</text>
+
+        <rect x="695" y="20" width="130" height="30" rx="6" fill="#e0e7ff" stroke="#4f46e5" />
+        <text x="760" y="38" font-family="'Inter'" font-size="10" font-weight="bold" text-anchor="middle" fill="#4f46e5">Active: UPSC GS-I</text>
+
+        <!-- Stats Grid Cards -->
+        <!-- Stat Card 1 -->
+        <rect x="190" y="85" width="200" height="70" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+        <text x="210" y="112" font-family="'Inter'" font-size="10" fill="#64748b">Completed Syllabus</text>
+        <text x="210" y="140" font-family="'Outfit'" font-size="20" font-weight="900" fill="#10b981">64.2%</text>
+        <circle cx="350" cy="120" r="18" fill="#d1fae5" />
+        <text x="350" y="124" font-family="'Outfit'" font-size="12" text-anchor="middle" fill="#047857">✓</text>
+
+        <!-- Stat Card 2 -->
+        <rect x="410" y="85" width="200" height="70" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+        <text x="430" y="112" font-family="'Inter'" font-size="10" fill="#64748b">Study Hours (Week)</text>
+        <text x="430" y="140" font-family="'Outfit'" font-size="20" font-weight="900" fill="#4f46e5">42.5 hrs</text>
+        <circle cx="570" cy="120" r="18" fill="#e0e7ff" />
+        <text x="570" y="124" font-family="'Outfit'" font-size="12" text-anchor="middle" fill="#4f46e5">⏱</text>
+
+        <!-- Stat Card 3 -->
+        <rect x="630" y="85" width="190" height="70" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+        <text x="650" y="112" font-family="'Inter'" font-size="10" fill="#64748b">Earned Points</text>
+        <text x="650" y="140" font-family="'Outfit'" font-size="20" font-weight="900" fill="#fbbf24">1,420 XP</text>
+        <circle cx="785" cy="120" r="18" fill="#fef3c7" />
+        <text x="785" y="124" font-family="'Outfit'" font-size="12" text-anchor="middle" fill="#b45309">🏆</text>
+
+        <!-- Main Graph Area (Recharts representation) -->
+        <rect x="190" y="175" width="420" height="180" rx="10" fill="#f8fafc" stroke="#e2e8f0" />
+        <text x="210" y="200" font-family="'Outfit'" font-size="11" font-weight="bold" fill="#0f172a">Daily Study Time Breakdown</text>
+        
+        <!-- Recharts grid lines -->
+        <line x1="210" y1="220" x2="590" y2="220" stroke="#e2e8f0" stroke-dasharray="2 2" />
+        <line x1="210" y1="260" x2="590" y2="260" stroke="#e2e8f0" stroke-dasharray="2 2" />
+        <line x1="210" y1="300" x2="590" y2="300" stroke="#e2e8f0" stroke-dasharray="2 2" />
+        
+        <!-- Recharts Area path representing SVG rendering -->
+        <path d="M 210 300 L 260 270 L 310 280 L 360 210 L 410 240 L 460 190 L 510 260 L 560 220 L 590 300" fill="rgba(99, 102, 241, 0.15)" />
+        <path d="M 210 300 L 260 270 L 310 280 L 360 210 L 410 240 L 460 190 L 510 260 L 560 220 L 590 300" stroke="#4f46e5" stroke-width="2" />
+        
+        <!-- Active Recharts tooltip point -->
+        <circle cx="460" cy="190" r="5" fill="#4f46e5" stroke="#ffffff" stroke-width="1.5" />
+
+        <!-- Checklist Widgets -->
+        <rect x="630" y="175" width="190" height="180" rx="10" fill="#ffffff" stroke="#e2e8f0" />
+        <text x="645" y="200" font-family="'Outfit'" font-size="11" font-weight="bold" fill="#0f172a">Pending Milestones</text>
+        
+        <circle cx="655" cy="230" r="6" fill="#10b981" />
+        <text x="670" y="233" font-family="'Inter'" font-size="9" fill="#334155" font-weight="bold">GS-I History MCQ</text>
+        
+        <circle cx="655" cy="260" r="6" fill="#10b981" />
+        <text x="670" y="263" font-family="'Inter'" font-size="9" fill="#334155" font-weight="bold">Ethics Case Studies</text>
+
+        <circle cx="655" cy="290" r="6" fill="#cbd5e1" />
+        <text x="670" y="293" font-family="'Inter'" font-size="9" fill="#64748b">Geography Mapping</text>
+      </svg>
+      <div class="diagram-caption">
+        Figure 2.3: Visual Dashboard Wireframe mapping active React Components, Lucide Icons, and Recharts charts.
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>3. Complete Technology Stack & Libraries Inventory</h2>
+    <p>
+      This index compiles every package configured in the MERN directory, pointing directly to the codebase implementation file and details what changes are rendered visually in the client's browser.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Library & Version</th>
+          <th>File Location</th>
+          <th>Purpose in Architecture</th>
+          <th>Visual UI Output Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- React -->
+        <tr>
+          <td>Frontend Core</td>
+          <td><span class="tag">react ^19.2.6</span></td>
+          <td><code>frontend/src/main.jsx</code></td>
+          <td>State engine and virtual DOM framework.</td>
+          <td>Manages component reconciliation, loading states dynamically when pages update.</td>
+        </tr>
+        <!-- React Router -->
+        <tr>
+          <td>Frontend Core</td>
+          <td><span class="tag">react-router-dom ^7.15.1</span></td>
+          <td><code>frontend/src/App.jsx</code></td>
+          <td>SPA Client-side Routing compiler.</td>
+          <td>Eliminates page-load flickers. Transitions between pages like `/syllabus` instantly.</td>
+        </tr>
+        <!-- Recharts -->
+        <tr>
+          <td>Frontend Graphing</td>
+          <td><span class="tag">recharts ^3.8.1</span></td>
+          <td><code>frontend/src/components/Dashboard.jsx</code></td>
+          <td>D3-based React SVG charting renderer.</td>
+          <td>Renders the Study Hours curve and Progress gradients. Displays exact coordinates on hover.</td>
+        </tr>
+        <!-- Lucide Icons -->
+        <tr>
+          <td>Frontend Icons</td>
+          <td><span class="tag">lucide-react ^1.16.0</span></td>
+          <td>Throughout all <code>src/components/</code></td>
+          <td>Vector iconography.</td>
+          <td>Renders layout status glyphs (trophies, fire icons, calendar grid bullets) matching the active page.</td>
+        </tr>
+        <!-- Tailwind CSS -->
+        <tr>
+          <td>Styling Architecture</td>
+          <td><span class="tag style">tailwindcss v4.3.0</span></td>
+          <td><code>frontend/src/index.css</code></td>
+          <td>Utility-first styling utility.</td>
+          <td>Applies layouts, themes, responsive sizes, gradients, transitions, and hover states.</td>
+        </tr>
+        <!-- Vite -->
+        <tr>
+          <td>Bundling Engine</td>
+          <td><span class="tag style">vite ^8.0.12</span></td>
+          <td><code>frontend/vite.config.js</code></td>
+          <td>Lightning-fast development server.</td>
+          <td>Enables Hot Module Replacement (HMR). Code edits update in the browser in milliseconds.</td>
+        </tr>
+        <!-- Express -->
+        <tr>
+          <td>Backend Router</td>
+          <td><span class="tag backend">express ^4.19.2</span></td>
+          <td><code>backend/server.js</code></td>
+          <td>HTTP router and route handler.</td>
+          <td>Serves routes like `/api/auth/reset-password` to execute backend login services.</td>
+        </tr>
+        <!-- Mongoose -->
+        <tr>
+          <td>Database ODM</td>
+          <td><span class="tag backend">mongoose ^8.4.1</span></td>
+          <td><code>backend/models/User.js</code></td>
+          <td>MongoDB database modeler.</td>
+          <td>Validates schemas. Unlocks frontend updates immediately when database updates are completed.</td>
+        </tr>
+        <!-- JsonWebToken -->
+        <tr>
+          <td>Authentication</td>
+          <td><span class="tag backend">jsonwebtoken ^9.0.2</span></td>
+          <td><code>backend/middleware/auth.js</code></td>
+          <td>Session security token builder.</td>
+          <td>Restricts page access. Automatically routes non-signed in users to the `/login` prompt.</td>
+        </tr>
+        <!-- BcryptJS -->
+        <tr>
+          <td>Cryptography</td>
+          <td><span class="tag backend">bcryptjs ^2.4.3</span></td>
+          <td><code>backend/routes/auth.js</code></td>
+          <td>Encryption engine.</td>
+          <td>Secures user passwords in MongoDB. Restores passwords without revealing actual credentials.</td>
+        </tr>
+        <!-- Nodemailer -->
+        <tr>
+          <td>System Mailer</td>
+          <td><span class="tag backend">nodemailer ^8.0.9</span></td>
+          <td><code>backend/routes/auth.js</code></td>
+          <td>Sends emails from SMTP nodes.</td>
+          <td>Dispatches random 6-digit OTP verification codes to the user's inbox on request.</td>
+        </tr>
+        <!-- CORS -->
+        <tr>
+          <td>API Security</td>
+          <td><span class="tag backend">cors ^2.8.5</span></td>
+          <td><code>backend/server.js</code></td>
+          <td>Cross-Origin Resource Sharing.</td>
+          <td>Permits frontend requests from port 5174 to backend on port 5000 securely.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>4. Technical Breakdown & Visual Footprint per Package</h2>
+
+    <h3>4.1 Lucide React (Visual Glyphs)</h3>
+    <p>
+      <strong>How it is integrated:</strong> Icons are imported as separate React components and rendered directly inside JSX layout structures.
+    </p>
+    
+    <div class="code-container">
+      <div class="code-title">
+        <span class="path">frontend/src/components/Sidebar.jsx</span>
+        <span>lucide-react</span>
+      </div>
+      <span class="keyword">import</span> { BookOpen, Calendar, Target, Award } <span class="keyword">from</span> <span class="string">'lucide-react'</span>;<br><br>
+      <span class="keyword">const</span> Sidebar = () => {<br>
+      &nbsp;&nbsp;<span class="keyword">return</span> (<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">nav</span> <span class="keyword">className</span>=<span class="string">"w-64 bg-slate-900 text-white"</span>&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">a</span> <span class="keyword">href</span>=<span class="string">"/syllabus"</span>&gt;&lt;<span class="function">BookOpen</span> <span class="keyword">className</span>=<span class="string">"w-5 h-5 text-indigo-400"</span> /&gt; Syllabus&lt;/<span class="function">a</span>&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">a</span> <span class="keyword">href</span>=<span class="string">"/planner"</span>&gt;&lt;<span class="function">Calendar</span> <span class="keyword">className</span>=<span class="string">"w-5 h-5 text-emerald-400"</span> /&gt; Planner&lt;/<span class="function">a</span>&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="function">nav</span>&gt;<br>
+      &nbsp;&nbsp;);<br>
+      };
+    </div>
+
+    <div class="details-grid">
+      <div class="details-card">
+        <h4>Visual Representation <span class="visual-pill">UI Output</span></h4>
+        <p>
+          Renders high-quality vector paths alongside sidebar link texts.
+        </p>
+        <div style="background:#0f172a; padding:15px; border-radius:8px; display:inline-flex; gap:20px; align-items:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span style="color:white; font-size:12px; font-family:sans-serif;">Syllabus Tracker</span>
+        </div>
+      </div>
+      <div class="details-card">
+        <h4>Visual UI Change Explained</h4>
+        <p>
+          Replaces standard browser bullet points or heavy image assets with responsive SVG icons that dynamically scale and change color when hovered.
+        </p>
+      </div>
+    </div>
+
+    <h3>4.2 Recharts (SVG Graph Generator)</h3>
+    <p>
+      <strong>How it is integrated:</strong> ResponsiveContainer wrapper controls child elements like AreaChart, Area, XAxis, and Tooltip to parse MongoDB snapshots dynamically into graphical representations.
+    </p>
+
+    <div class="code-container">
+      <div class="code-title">
+        <span class="path">frontend/src/components/Dashboard.jsx</span>
+        <span>recharts</span>
+      </div>
+      <span class="keyword">import</span> { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } <span class="keyword">from</span> <span class="string">'recharts'</span>;<br><br>
+      <span class="comment">// Render dynamic database study arrays</span><br>
+      &lt;<span class="function">ResponsiveContainer</span> <span class="keyword">width</span>=<span class="string">"100%"</span> <span class="keyword">height</span>={<span class="number">200</span>}&gt;<br>
+      &nbsp;&nbsp;&lt;<span class="function">AreaChart</span> <span class="keyword">data</span>={chartData}&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">XAxis</span> <span class="keyword">dataKey</span>=<span class="string">"date"</span> /&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">Tooltip</span> <span class="keyword">contentStyle</span>={{ backgroundColor: <span class="string">'#0f172a'</span> }} /&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">Area</span> <span class="keyword">type</span>=<span class="string">"monotone"</span> <span class="keyword">dataKey</span>=<span class="string">"hours"</span> <span class="keyword">stroke</span>=<span class="string">"#4f46e5"</span> <span class="keyword">fill</span>=<span class="string">"url(#chartGrad)"</span> /&gt;<br>
+      &nbsp;&nbsp;&lt;/<span class="function">AreaChart</span>&gt;<br>
+      &lt;/<span class="function">ResponsiveContainer</span>&gt;
+    </div>
+
+    <div class="details-grid">
+      <div class="details-card">
+        <h4>Visual Representation <span class="visual-pill">UI Output</span></h4>
+        <p>
+          Renders interactive linear spline nodes.
+        </p>
+        <div style="background:#ffffff; border:1px solid #cbd5e1; padding:15px; border-radius:8px; text-align:center;">
+          <span style="font-size:10px; color:#64748b; display:block; margin-bottom:5px;">Daily Trend (Hours)</span>
+          <svg width="150" height="50">
+            <path d="M 10 40 Q 40 10 80 30 T 140 10" fill="none" stroke="#4f46e5" stroke-width="2"/>
+            <circle cx="80" cy="30" r="3" fill="#4f46e5" />
+          </svg>
+        </div>
+      </div>
+      <div class="details-card">
+        <h4>Visual UI Change Explained</h4>
+        <p>
+          Converts raw database tables into responsive charts. Displays study hour spikes, visual peaks, and interactive detail boxes when hovered.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h3>4.3 Tailwind CSS v4.0 (Global Layout Engine)</h3>
+    <p>
+      <strong>How it is integrated:</strong> Directly applied via CSS class utilities onto React jsx elements, resolving typography, margins, grids, responsive breakouts, transitions, and hover scales.
+    </p>
+
+    <div class="code-container">
+      <div class="code-title">
+        <span class="path">frontend/src/components/Login.jsx</span>
+        <span>Tailwind CSS</span>
+      </div>
+      &lt;<span class="function">div</span> <span class="keyword">className</span>=<span class="string">"min-h-screen flex items-center justify-center bg-slate-950 p-4"</span>&gt;<br>
+      &nbsp;&nbsp;&lt;<span class="function">div</span> <span class="keyword">className</span>=<span class="string">"w-full max-w-md bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-2xl"</span>&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">h2</span> <span class="keyword">className</span>=<span class="string">"text-2xl font-black text-white text-center tracking-tight"</span>&gt;Catalyst&lt;/<span class="function">h2</span>&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="function">button</span> <span class="keyword">className</span>=<span class="string">"w-full py-3 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl font-bold transition duration-300 transform active:scale-95"</span>&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authenticate<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="function">button</span>&gt;<br>
+      &nbsp;&nbsp;&lt;/<span class="function">div</span>&gt;<br>
+      &lt;/<span class="function">div</span>&gt;
+    </div>
+
+    <div class="details-grid">
+      <div class="details-card">
+        <h4>Visual Representation <span class="visual-pill">UI Output</span></h4>
+        <p>
+          Renders highly stylized UI cards.
+        </p>
+        <div style="background:#020617; padding:25px; border-radius:12px; text-align:center;">
+          <div style="background:rgba(15,23,42,0.6); backdrop-filter:blur(8px); border:1px solid #1e293b; padding:15px; border-radius:8px;">
+            <button style="background:linear-gradient(to right, #6366f1, #8b5cf6); color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:bold; cursor:pointer; width:100%;">Authenticate</button>
+          </div>
+        </div>
+      </div>
+      <div class="details-card">
+        <h4>Visual UI Change Explained</h4>
+        <p>
+          Replaces standard native operating system dialogs with custom styling, incorporating modern visual details like drop-shadow offsets, smooth linear transitions, responsive spacing, and a consistent color scheme.
+        </p>
+      </div>
+    </div>
+
+    <h3>4.4 Nodemailer (SMTP OTP Delivery Engine)</h3>
+    <p>
+      <strong>How it is integrated:</strong> The Express route handler compiles OTP payloads, updates the user's active document in MongoDB, and triggers Nodemailer's transporter node to dispatch emails via secure SMTP configurations.
+    </p>
+
+    <div class="code-container">
+      <div class="code-title">
+        <span class="path">backend/routes/auth.js</span>
+        <span>nodemailer</span>
+      </div>
+      <span class="keyword">const</span> transporter = nodemailer.<span class="function">createTransport</span>({<br>
+      &nbsp;&nbsp;service: <span class="string">'gmail'</span>,<br>
+      &nbsp;&nbsp;auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }<br>
+      });<br><br>
+      <span class="keyword">const</span> mailOptions = {<br>
+      &nbsp;&nbsp;from: process.env.EMAIL_USER,<br>
+      &nbsp;&nbsp;to: user.email,<br>
+      &nbsp;&nbsp;subject: <span class="string">'Your Verification Code'</span>,<br>
+      &nbsp;&nbsp;text: <span class="string">`Your password reset code is: ${otpCode}. Valid for 15 minutes.`</span><br>
+      };<br>
+      <span class="keyword">await</span> transporter.<span class="function">sendMail</span>(mailOptions);
+    </div>
+
+    <div class="details-grid">
+      <div class="details-card">
+        <h4>Visual Representation <span class="visual-pill">UI Output</span></h4>
+        <p>
+          Renders status notifications inside the user's email client.
+        </p>
+        <div style="background:#ffffff; border:1px solid #cbd5e1; padding:15px; border-radius:8px;">
+          <strong style="font-size:11px; display:block; color:#0f172a;">Subject: Your Verification Code</strong>
+          <span style="font-size:10px; color:#64748b; display:block; margin:5px 0;">From: support@catalyst.com</span>
+          <div style="background:#f1f5f9; padding:8px; border-radius:4px; font-family:monospace; font-size:12px; font-weight:bold; letter-spacing:2px; text-align:center; color:#4f46e5;">587421</div>
+        </div>
+      </div>
+      <div class="details-card">
+        <h4>Visual UI Change Explained</h4>
+        <p>
+          Sends the verification code directly to the user's inbox. The frontend web app reactively transitions from the email input screen to the 6-digit OTP verification field.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>5. Key Authentication Lifecycles & State Flows</h2>
+    <p>
+      This section details how the technologies coordinate to handle authentication, database persistence, and visual state updates.
+    </p>
+
+    <div class="highlight-box">
+      <h4>Forgot Password OTP Flow</h4>
+      <p>
+        A visual representation of how a password recovery request updates the database and transitions the user interface:
+      </p>
+    </div>
+
+    <div class="diagram-card">
+      <svg width="850" height="260" viewBox="0 0 850 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Process block 1 -->
+        <rect x="10" y="40" width="130" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+        <text x="75" y="65" font-family="'Outfit'" font-size="11" font-weight="bold" text-anchor="middle" fill="#0f172a">1. Email Submission</text>
+        <text x="75" y="85" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">User submits email</text>
+        <text x="75" y="100" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">on Login.jsx</text>
+        <rect x="25" y="107" width="100" height="15" rx="3" fill="#e0e7ff" />
+        <text x="75" y="117" font-family="'JetBrains Mono'" font-size="7.5" font-weight="bold" text-anchor="middle" fill="#4f46e5">useState (email)</text>
+
+        <!-- Arrow 1 -->
+        <path d="M 140 85 L 180 85" stroke="#4f46e5" stroke-width="2" />
+        <polygon points="185,85 175,80 175,90" fill="#4f46e5" />
+
+        <!-- Process block 2 -->
+        <rect x="190" y="40" width="130" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+        <text x="255" y="65" font-family="'Outfit'" font-size="11" font-weight="bold" text-anchor="middle" fill="#0f172a">2. Code Persistence</text>
+        <text x="255" y="85" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">Backend generates OTP,</text>
+        <text x="255" y="100" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">saves it to MongoDB</text>
+        <rect x="205" y="107" width="100" height="15" rx="3" fill="#fef3c7" />
+        <text x="255" y="117" font-family="'JetBrains Mono'" font-size="7.5" font-weight="bold" text-anchor="middle" fill="#78350f">Mongoose User Model</text>
+
+        <!-- Arrow 2 -->
+        <path d="M 320 85 L 360 85" stroke="#4f46e5" stroke-width="2" />
+        <polygon points="365,85 355,80 355,90" fill="#4f46e5" />
+
+        <!-- Process block 3 -->
+        <rect x="370" y="40" width="130" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+        <text x="435" y="65" font-family="'Outfit'" font-size="11" font-weight="bold" text-anchor="middle" fill="#0f172a">3. Dispatch & UI Shift</text>
+        <text x="435" y="85" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">Nodemailer sends code;</text>
+        <text x="435" y="100" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">UI displays OTP input</text>
+        <rect x="385" y="107" width="100" height="15" rx="3" fill="#d1fae5" />
+        <text x="435" y="117" font-family="'JetBrains Mono'" font-size="7.5" font-weight="bold" text-anchor="middle" fill="#047857">Nodemailer SMTP</text>
+
+        <!-- Arrow 3 -->
+        <path d="M 500 85 L 540 85" stroke="#4f46e5" stroke-width="2" />
+        <polygon points="545,85 535,80 535,90" fill="#4f46e5" />
+
+        <!-- Process block 4 -->
+        <rect x="550" y="40" width="130" height="90" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+        <text x="615" y="65" font-family="'Outfit'" font-size="11" font-weight="bold" text-anchor="middle" fill="#0f172a">4. Code Verification</text>
+        <text x="615" y="85" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">User submits OTP,</text>
+        <text x="615" y="100" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#64748b">verifying it matches database</text>
+        <rect x="565" y="107" width="100" height="15" rx="3" fill="#e0e7ff" />
+        <text x="615" y="117" font-family="'JetBrains Mono'" font-size="7.5" font-weight="bold" text-anchor="middle" fill="#4f46e5">POST /verify-otp</text>
+
+        <!-- Arrow 4 -->
+        <path d="M 680 85 L 700 85 C 710 85, 710 175, 720 175 C 730 175, 730 175, 740 175" stroke="#10b981" stroke-width="2" />
+        <polygon points="745,175 735,170 735,180" fill="#10b981" />
+
+        <!-- Process block 5 -->
+        <rect x="700" y="130" width="140" height="90" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2" />
+        <text x="770" y="155" font-family="'Outfit'" font-size="11" font-weight="bold" text-anchor="middle" fill="#047857">5. Success & Redirect</text>
+        <text x="770" y="175" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#065f46">Saves password hash,</text>
+        <text x="770" y="190" font-family="'Inter'" font-size="8.5" text-anchor="middle" fill="#065f46">redirects to /login</text>
+        <rect x="715" y="197" width="110" height="15" rx="3" fill="#ffffff" stroke="#10b981" />
+        <text x="770" y="207" font-family="'JetBrains Mono'" font-size="7.5" font-weight="bold" text-anchor="middle" fill="#047857">bcryptjs + Router Redirect</text>
+      </svg>
+      <div class="diagram-caption">
+        Figure 5.2: Verification State Flow and Password Reset Pipeline.
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>6. Core Technical Concept Explanations & Interview Prep</h2>
+    
+    <div class="details-grid">
+      <div class="details-card">
+        <h4>Q: Why is BcryptJS used over simple cryptographic libraries like crypto?</h4>
+        <p>
+          BcryptJS implements a computational cost factor (salt rounds) that scales key derivation complexity over time. Unlike standard MD5 or SHA256 hashes, bcrypt uses an iterative hashing algorithm. This slows down brute force attacks significantly. The computation cost factor ensures that even if hackers export the raw MongoDB user schemas, decrypting password hashes remains computationally expensive.
+        </p>
+      </div>
+      
+      <div class="details-card">
+        <h4>Q: What is the benefit of Tailwind CSS v4.0 in MERN builds?</h4>
+        <p>
+          Tailwind CSS v4.0 introduces an optimized PostCSS compiler engine. Instead of scanning files for selectors at runtime, v4 resolves utility structures at build time. This compiles the stylesheet into a highly optimized production bundle. It provides support for custom CSS variables, layout grids, container queries, and native dark-theme media configurations directly inside Tailwind class strings.
+        </p>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      <div class="details-card">
+        <h4>Q: How does CORS work, and what happens if it is misconfigured?</h4>
+        <p>
+          Cross-Origin Resource Sharing (CORS) is a browser security protocol that prevents malicious scripts on one origin from accessing resources on another. If the React frontend on `localhost:5174` requests data from the Express backend on `localhost:5000` without CORS configured on the backend, the browser will block the response. This displays a cross-origin resource error in the console, preventing data from loading into the user interface.
+        </p>
+      </div>
+
+      <div class="details-card">
+        <h4>Q: Why is local state used alongside database synchronization?</h4>
+        <p>
+          React state provides optimistic UI updates. When a student checks a study planner milestone, the UI updates immediately to a checked state (optimistic render) while the backend updates in the background. If the API request succeeds, the local state remains checked. If it fails, the local state rolls back, prompting an error message. This keeps the application responsive and interactive.
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Montserrat', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+
+  --color-catalyst-dark:    #1e1e2f;
+  --color-catalyst-sidebar: #16162a;
+  --color-catalyst-card:    #ffffff;
+  --color-catalyst-primary: #10b981;
+  --color-catalyst-secondary: #f59e0b;
+  --color-catalyst-accent:  #6366f1;
+  --color-catalyst-text:    #1f2937;
+  --color-catalyst-muted:   #6b7280;
+  --color-catalyst-border:  #f0f0f5;
+  --color-catalyst-bg:      #f5f5fa;
+}
+
+@layer base {
+  * { font-family: 'Montserrat', sans-serif; }
+
+  body {
+    background-color: var(--color-catalyst-bg);
+    color: var(--color-catalyst-text);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .card {
+    background: var(--color-catalyst-card);
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 24px -4px rgba(0,0,0,0.06);
+    border: 1px solid var(--color-catalyst-border);
+  }
+  .badge-green {
+    background: #d1fae5; color: #065f46;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+  .badge-amber {
+    background: #fef3c7; color: #92400e;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+  .badge-purple {
+    background: #ede9fe; color: #4c1d95;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+  .badge-blue {
+    background: #dbeafe; color: #1e40af;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+  .btn-primary {
+    background: var(--color-catalyst-dark);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.625rem;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+  .btn-primary:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+  .progress-bar {
+    height: 8px;
+    border-radius: 9999px;
+    background: #e5e7eb;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 1s cubic-bezier(0.4,0,0.2,1);
+  }
+}
