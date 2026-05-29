@@ -54,7 +54,7 @@ function AppContent() {
       {!isFullPage && <Sidebar />}
       <div className="flex flex-col flex-1 overflow-hidden relative z-10">
         {!isFullPage && <Header />}
-        <main className={`flex-1 overflow-y-auto ${isFullPage ? '' : 'p-6'}`}>
+        <main className={`flex-1 overflow-y-auto ${isFullPage ? '' : 'p-4 sm:p-6'}`}>
           <Routes>
             <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
             <Route path="/setup" element={<SetupRoute><ExamSetup /></SetupRoute>} />

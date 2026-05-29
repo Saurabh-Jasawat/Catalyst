@@ -14,6 +14,8 @@ export const AppProvider = ({ children }) => {
     return localStorage.getItem('catalyst_selected_exam') || null;
   });
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   // Core tracking
   const [syllabusData, setSyllabusData] = useState([]);
   
@@ -43,7 +45,7 @@ export const AppProvider = ({ children }) => {
   const [targetScore, setTargetScore] = useState(0);
 
   // Enrolled & Custom Exams State
-  const [enrolledExams, setEnrolledExams] = useState(['UPSC CSE']);
+  const [enrolledExams, setEnrolledExams] = useState([]);
   const [customExams, setCustomExams] = useState([]);
   const [examStats, setExamStats] = useState({});
 
@@ -92,7 +94,7 @@ export const AppProvider = ({ children }) => {
           setProfileAvatarType(data.avatarType || 'emoji');
           setProfileEmoji(data.emoji || '👨‍🎓');
           setProfilePicture(data.picture || '');
-          setEnrolledExams(data.enrolledExams || ['UPSC CSE']);
+          setEnrolledExams(data.enrolledExams || []);
           setCustomExams(data.customExams || []);
           setExamStats(data.examStats || {});
           if (data.selectedExam) {
@@ -1234,7 +1236,8 @@ export const AppProvider = ({ children }) => {
       loadDemoData, resetAllUserData, importBackup,
       addSubject, deleteSubject, addTopic, deleteTopic, updateSubtopicStatus, updateTopicPrepStage, updateSubtopicPrepStage, updateTopicDetails, addSubtopic, deleteSubtopic,
       streak, points, isLoadingExam,
-      profileName, profileAvatarType, profileEmoji, profilePicture, updateProfile
+      profileName, profileAvatarType, profileEmoji, profilePicture, updateProfile,
+      isSidebarOpen, setIsSidebarOpen
     }}>
       {children}
     </AppContext.Provider>

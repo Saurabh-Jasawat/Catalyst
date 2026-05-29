@@ -318,7 +318,7 @@ const Planner = () => {
         </div>
 
         {/* Dynamic Warning/Comeback Indicator */}
-        <div className="col-span-2 card p-5 flex items-start gap-4 bg-white relative overflow-hidden">
+        <div className="col-span-1 md:col-span-2 card p-5 flex items-start gap-4 bg-white relative overflow-hidden">
           {consistencyStats.rate >= 70 ? (
             <>
               <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-lg shadow-emerald-200">

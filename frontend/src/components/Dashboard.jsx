@@ -490,7 +490,7 @@ Always align your tips with their actual progress. If their mock scores are belo
     <div className="space-y-5 max-w-7xl mx-auto pb-10">
 
       {/* Goal Banner */}
-      <div className="card p-5 flex items-center justify-between relative overflow-hidden">
+      <div className="card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative overflow-hidden">
         <div className="absolute -top-10 -right-10 w-48 h-48 bg-amber-100 rounded-full opacity-60 blur-3xl"></div>
         <div className="absolute bottom-0 right-32 w-32 h-32 bg-emerald-100 rounded-full opacity-60 blur-2xl"></div>
         <div className="relative z-10">
@@ -498,17 +498,17 @@ Always align your tips with their actual progress. If their mock scores are belo
           <h2 className="text-2xl font-black text-catalyst-dark">{selectedExam || 'Set Your Goal'} 🎯</h2>
           <p className="text-catalyst-muted text-sm font-medium mt-1">Stay consistent — configure your daily tracker and review progress below.</p>
         </div>
-        <div className="relative z-10 flex items-center gap-8">
+        <div className="relative z-10 flex flex-wrap items-center gap-4 sm:gap-8">
           <GoalStat label="Target Score" value={targetScore ? `${targetScore}` : 'Not set'} color="text-catalyst-primary" />
-          <div className="w-px h-10 bg-catalyst-border"></div>
+          <div className="hidden sm:block w-px h-10 bg-catalyst-border"></div>
           <GoalStat label="Time Left" value={daysLeft !== null ? `${daysLeft} days` : 'Not set'} color="text-catalyst-accent" />
-          <div className="w-px h-10 bg-catalyst-border"></div>
+          <div className="hidden sm:block w-px h-10 bg-catalyst-border"></div>
           <GoalStat label="Overall Mock Avg" value={mockTests.length > 0 ? `${overallMockAvg}` : '0'} color="text-catalyst-secondary" />
         </div>
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard icon={<BookOpen size={18} />} iconBg="bg-emerald-100" iconColor="text-emerald-600" label="Syllabus Done" value={`${overallPct}%`} sub={`${completedTopics} of ${totalTopics} Completed`} trend="On track" />
         <StatCard icon={<Clock size={18} />} iconBg="bg-blue-100" iconColor="text-blue-600" label="Study This Week" value={`${weeklyHours}h`} sub="Great consistency" trend="Top 10%" />
         <StatCard icon={<RotateCcw size={18} />} iconBg="bg-amber-100" iconColor="text-amber-600" label="Revisions Due" value={revisionsDueCount} sub="Spaced repetition" trend={revisionsDueCount > 0 ? `${revisionsDueCount} overdue` : "All caught up"} trendRed={revisionsDueCount > 0} />
@@ -516,9 +516,9 @@ Always align your tips with their actual progress. If their mock scores are belo
       </div>
 
       {/* Charts + Actions Row */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Mock Trend Chart */}
-        <div className="col-span-2 card p-5">
+        <div className="col-span-1 lg:col-span-2 card p-5">
           <div className="flex items-center justify-between mb-5">
             <div>
               <h3 className="font-black text-base text-catalyst-dark">
@@ -679,7 +679,7 @@ Always align your tips with their actual progress. If their mock scores are belo
       </div>
 
       {/* Donut Chart + Subject Completion Row */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Visual Syllabus Stages Chart (5 stages) */}
         <div className="card p-5 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
@@ -719,7 +719,7 @@ Always align your tips with their actual progress. If their mock scores are belo
         </div>
 
         {/* AI Study Copilot Chat Interface */}
-        <div className="col-span-2 card p-5 flex flex-col justify-between h-56">
+        <div className="col-span-1 lg:col-span-2 card p-5 flex flex-col justify-between h-56">
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-3 shrink-0">
               <div className="flex items-center gap-2">

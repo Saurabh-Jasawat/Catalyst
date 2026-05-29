@@ -31,11 +31,11 @@ const UserSchema = new mongoose.Schema({
   },
   enrolledExams: {
     type: [String],
-    default: ['UPSC CSE']
+    default: []
   },
   selectedExam: {
     type: String,
-    default: 'UPSC CSE'
+    default: null
   },
   customExams: {
     type: Array,

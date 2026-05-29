@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Bell, Search, Flame, Award, Calendar } from 'lucide-react';
+import { Bell, Search, Flame, Award, Calendar, Menu } from 'lucide-react';
 import ExamSwitcher from './ExamSwitcher';
 import { useAppContext } from '../context/AppContext';
 
 const Header = () => {
-  const { streak, points, dDay, dDayPhases, todos, selectedExam, syllabusData, allExamData } = useAppContext();
+  const { streak, points, dDay, dDayPhases, todos, selectedExam, syllabusData, allExamData, isSidebarOpen, setIsSidebarOpen } = useAppContext();
   const [showNotifications, setShowNotifications] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -173,9 +173,18 @@ const Header = () => {
   }, [selectedExam, todos, dDay, dDayPhases, syllabusData, allExamData]);
 
   return (
-    <header className="relative z-30 h-16 px-6 flex items-center justify-between border-b border-catalyst-border bg-white/60 backdrop-blur-md shrink-0">
-      <div className="flex items-center gap-4">
-        <div className="relative">
+    <header className="relative z-30 h-16 px-4 sm:px-6 flex items-center justify-between border-b border-catalyst-border bg-white/60 backdrop-blur-md shrink-0">
+      <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+        {/* Hamburger Menu Toggle Button */}
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="p-2 -ml-2 rounded-xl text-catalyst-muted hover:text-catalyst-text hover:bg-catalyst-bg lg:hidden transition-colors shrink-0"
+          title="Toggle Navigation Menu"
+        >
+          <Menu size={20} />
+        </button>
+
+        <div className="relative hidden md:block">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-catalyst-muted" size={15} />
           <input
             type="text"
@@ -187,19 +196,19 @@ const Header = () => {
         <ExamSwitcher />
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4 shrink-0">
         {/* Points Display */}
         <div 
-          className="flex items-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 px-3 py-1.5 rounded-full select-none"
+          className="flex items-center gap-1.5 sm:gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 px-2.5 sm:px-3 py-1.5 rounded-full select-none"
           title="Earned experience points (XP) based on study tasks completed"
         >
-          <Award size={15} className="text-indigo-600 animate-pulse" />
-          <span className="text-xs font-bold">{points} XP</span>
+          <Award size={14} className="text-indigo-600 animate-pulse" />
+          <span className="text-[10px] sm:text-xs font-bold">{points} XP</span>
         </div>
 
-        {/* Date Display */}
+        {/* Date Display (Hidden on Mobile) */}
         <div 
-          className="flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full select-none"
+          className="hidden sm:flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-3.5 py-1.5 rounded-full select-none"
           title="Current date"
         >
           <Calendar size={14} className="text-slate-500" />
@@ -209,17 +218,17 @@ const Header = () => {
         {/* Streak (Conditional) */}
         {streak > 0 && (
           <div 
-            className="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1.5 rounded-full select-none"
+            className="flex items-center gap-1.5 sm:gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-2.5 sm:px-3 py-1.5 rounded-full select-none"
             title="Consecutive daily study streak"
           >
-            <Flame size={15} className="text-orange-500 animate-bounce" style={{ animationDuration: '2s' }} />
-            <span className="text-xs font-bold">{streak} Day Streak</span>
+            <Flame size={14} className="text-orange-500 animate-bounce" style={{ animationDuration: '2s' }} />
+            <span className="text-[10px] sm:text-xs font-bold">{streak} Day</span>
           </div>
         )}
 
-        {/* D-Day Display Pill */}
+        {/* D-Day Display Pill (Hidden on Mobile & Tablets) */}
         <div 
-          className="flex items-center gap-2 bg-rose-50 border border-rose-200 text-rose-700 px-3 py-1.5 rounded-full select-none"
+          className="hidden md:flex items-center gap-2 bg-rose-50 border border-rose-200 text-rose-700 px-3 py-1.5 rounded-full select-none"
           title="Active exam target D-Day date"
         >
           <Calendar size={14} className="text-rose-500" />

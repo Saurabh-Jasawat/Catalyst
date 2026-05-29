@@ -12,7 +12,7 @@ const ExamSetup = () => {
 
   const [selectedTitles, setSelectedTitles] = useState(() => {
     // If they already have enrolled exams, pre-populate
-    return enrolledExams && enrolledExams.length > 0 ? enrolledExams : ['UPSC CSE'];
+    return enrolledExams && enrolledExams.length > 0 ? enrolledExams : [];
   });
 
   const getExamStats = (exam) => {

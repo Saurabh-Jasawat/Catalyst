@@ -62,11 +62,11 @@ const ExamSwitcher = () => {
           }
         }}
         title="Switch active exam goal"
-        className="flex items-center gap-2 px-4 py-2 bg-catalyst-bg hover:bg-catalyst-border/40 active:scale-95 transition-all text-catalyst-dark font-bold text-sm rounded-xl border border-catalyst-border shadow-sm cursor-pointer"
+        className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-2 bg-catalyst-bg hover:bg-catalyst-border/40 active:scale-95 transition-all text-catalyst-dark font-bold text-xs sm:text-sm rounded-xl border border-catalyst-border shadow-sm cursor-pointer min-w-0"
       >
-        <BookOpen size={16} className="text-catalyst-primary" />
-        <span>{selectedExam || 'Select Exam'}</span>
-        <ChevronDown size={14} className={`text-catalyst-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <BookOpen size={15} className="text-catalyst-primary shrink-0" />
+        <span className="truncate max-w-[80px] sm:max-w-none">{selectedExam || 'Select Exam'}</span>
+        <ChevronDown size={13} className={`text-catalyst-muted transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (

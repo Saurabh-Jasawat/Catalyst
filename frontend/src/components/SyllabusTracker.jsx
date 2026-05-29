@@ -320,14 +320,14 @@ const SyllabusTracker = () => {
 
   return (
     <div className="max-w-7xl mx-auto pb-10 space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-black text-catalyst-dark">Syllabus Tracker</h2>
           <p className="text-catalyst-muted text-sm font-medium mt-0.5">
             Customize and track your mastery journey — topic by topic.
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button 
             onClick={handleResetToDefault} 
             className="px-4 py-2 border border-red-200 text-red-600 hover:bg-red-50 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer"
@@ -345,13 +345,13 @@ const SyllabusTracker = () => {
           </button>
           
           {isAddingSubject ? (
-            <div className="flex items-center gap-2 bg-white border border-catalyst-border p-2 rounded-xl shadow-md">
+            <div className="flex flex-wrap items-center gap-2 bg-white border border-catalyst-border p-2 rounded-xl shadow-md">
               <input 
                 type="text" 
                 value={newSubjectName}
                 onChange={(e) => setNewSubjectName(e.target.value)}
                 placeholder="Subject Name"
-                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-catalyst-border focus:border-catalyst-primary outline-none w-40"
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-catalyst-border focus:border-catalyst-primary outline-none w-32 sm:w-40"
                 autoFocus
               />
               <input 
@@ -359,10 +359,12 @@ const SyllabusTracker = () => {
                 value={newSubjectRound}
                 onChange={(e) => setNewSubjectRound(e.target.value)}
                 placeholder="Round (e.g. Prelims/Mains)"
-                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-catalyst-border focus:border-catalyst-primary outline-none w-32"
+                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-catalyst-border focus:border-catalyst-primary outline-none w-28 sm:w-32"
               />
-              <button onClick={handleAddSubject} className="btn-primary text-xs py-1.5 px-3">Add</button>
-              <button onClick={() => { setIsAddingSubject(false); setNewSubjectRound(''); }} className="text-xs font-bold text-catalyst-muted hover:text-catalyst-dark px-1">Cancel</button>
+              <div className="flex items-center gap-1.5">
+                <button onClick={handleAddSubject} className="btn-primary text-xs py-1.5 px-3">Add</button>
+                <button onClick={() => { setIsAddingSubject(false); setNewSubjectRound(''); }} className="text-xs font-bold text-catalyst-muted hover:text-catalyst-dark px-1">Cancel</button>
+              </div>
             </div>
           ) : (
             <button onClick={() => setIsAddingSubject(true)} className="btn-primary flex items-center gap-2">
@@ -373,8 +375,8 @@ const SyllabusTracker = () => {
         </div>
       </div>
 
-      <div className="card p-5 flex items-center gap-8">
-        <div className="flex-1">
+      <div className="card p-5 flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+        <div className="flex-1 w-full">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-bold text-catalyst-dark">Overall Completion</span>
             <span className="text-sm font-black text-catalyst-primary">{overallPct}%</span>
@@ -383,17 +385,19 @@ const SyllabusTracker = () => {
             <div className="progress-fill bg-catalyst-primary" style={{ width: `${overallPct}%` }}></div>
           </div>
         </div>
-        <div className="w-px h-10 bg-catalyst-border"></div>
-        {STAGES.map(stage => {
-          const count = syllabusData.flatMap(s => s.topics || []).filter(t => t.stage === stage).length;
-          const c = STAGE_COLORS[stage];
-          return (
-            <div key={stage} className="text-center">
-              <p className={`text-lg font-black ${c.text}`}>{count}</p>
-              <p className="text-[10px] font-bold text-catalyst-muted uppercase tracking-wide">{stage}</p>
-            </div>
-          );
-        })}
+        <div className="hidden md:block w-px h-10 bg-catalyst-border"></div>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 w-full md:w-auto">
+          {STAGES.map(stage => {
+            const count = syllabusData.flatMap(s => s.topics || []).filter(t => t.stage === stage).length;
+            const c = STAGE_COLORS[stage];
+            return (
+              <div key={stage} className="text-center">
+                <p className={`text-base sm:text-lg font-black ${c.text}`}>{count}</p>
+                <p className="text-[9px] sm:text-[10px] font-bold text-catalyst-muted uppercase tracking-wide">{stage}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {availableRounds.length > 1 && (
@@ -544,32 +548,30 @@ const SubjectCard = ({ subject }) => {
 
   return (
     <div className="card overflow-hidden">
-      <div className="w-full flex items-center justify-between p-5 hover:bg-catalyst-bg transition-colors">
-        <button onClick={() => setOpen(!open)} className="flex items-center gap-3 flex-1 text-left">
-          <span className="text-2xl">{subject.emoji}</span>
-          <div className="text-left flex items-center gap-2">
-            <div>
-              <div className="flex items-center gap-2.5">
-                <h3 className="font-black text-base text-catalyst-dark">{subject.name}</h3>
-                {subject.round && (
-                  <span className="px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider bg-catalyst-primary/10 text-catalyst-primary border border-catalyst-primary/20 rounded-full">
-                    {subject.round}
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-catalyst-muted font-medium">{(subject.topics || []).length} topics</p>
+      <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 hover:bg-catalyst-bg transition-colors">
+        <button onClick={() => setOpen(!open)} className="flex items-center gap-3 flex-1 text-left w-full min-w-0">
+          <span className="text-2xl shrink-0">{subject.emoji}</span>
+          <div className="text-left flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-black text-base text-catalyst-dark truncate">{subject.name}</h3>
+              {subject.round && (
+                <span className="px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider bg-catalyst-primary/10 text-catalyst-primary border border-catalyst-primary/20 rounded-full shrink-0">
+                  {subject.round}
+                </span>
+              )}
             </div>
+            <p className="text-xs text-catalyst-muted font-medium">{(subject.topics || []).length} topics</p>
           </div>
         </button>
-        <div className="flex items-center gap-5">
-          <div className="flex items-center gap-3 w-44">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-catalyst-border/40 sm:border-none">
+          <div className="flex items-center gap-3 w-full sm:w-44 justify-between sm:justify-start">
             <div className="progress-bar flex-1">
               <div className="progress-fill" style={{ width: `${totalPct}%`, background: '#10b981' }}></div>
             </div>
-            <span className="text-xs font-black text-catalyst-primary w-8">{totalPct}%</span>
+            <span className="text-xs font-black text-catalyst-primary w-8 shrink-0">{totalPct}%</span>
           </div>
           
-          <div className="flex items-center gap-2 border-l-2 border-catalyst-border pl-4">
+          <div className="flex items-center justify-between sm:justify-end gap-2 border-t sm:border-t-0 sm:border-l-2 border-catalyst-border pt-3 sm:pt-0 sm:pl-4 w-full sm:w-auto">
             {isAddingTopic ? (
               <div className="flex items-center gap-2">
                 <input 
@@ -577,7 +579,7 @@ const SubjectCard = ({ subject }) => {
                   value={newTopicName}
                   onChange={(e) => setNewTopicName(e.target.value)}
                   placeholder="Topic Name"
-                  className="px-2 py-1 text-xs rounded border-2 border-catalyst-border outline-none w-32"
+                  className="px-2 py-1 text-xs rounded border-2 border-catalyst-border outline-none w-28 sm:w-32"
                   autoFocus
                 />
                 <button onClick={handleAddTopic} className="text-xs font-bold text-catalyst-primary">Add</button>
@@ -588,21 +590,23 @@ const SubjectCard = ({ subject }) => {
                 <Plus size={12} /> Add Topic
               </button>
             )}
-            <button 
-              onClick={(e) => {
-                e.stopPropagation();
-                if (window.confirm(`Are you sure you want to delete the subject "${subject.name}"? This will delete all its topics and progress.`)) {
-                  deleteSubject(subject.id);
-                }
-              }}
-              className="p-1 text-catalyst-muted hover:text-red-500 transition-colors cursor-pointer"
-              title="Delete Subject"
-            >
-              <Trash2 size={15} />
-            </button>
-            <button onClick={() => setOpen(!open)} className="ml-2 text-catalyst-muted">
-              {open ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-            </button>
+            <div className="flex items-center gap-2 pl-2">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (window.confirm(`Are you sure you want to delete the subject "${subject.name}"? This will delete all its topics and progress.`)) {
+                    deleteSubject(subject.id);
+                  }
+                }}
+                className="p-1 text-catalyst-muted hover:text-red-500 transition-colors cursor-pointer"
+                title="Delete Subject"
+              >
+                <Trash2 size={15} />
+              </button>
+              <button onClick={() => setOpen(!open)} className="text-catalyst-muted">
+                {open ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -680,57 +684,61 @@ const TopicRow = ({ subjectId, topic, isLast }) => {
   return (
     <div className={`${isLast ? '' : 'border-b border-catalyst-border'}`}>
       {/* Main Row */}
-      <div className="flex items-center gap-4 px-6 py-3.5 hover:bg-catalyst-bg transition-colors">
-        <button onClick={() => setOpen(!open)} className="text-catalyst-muted hover:text-catalyst-dark transition-colors shrink-0">
-          {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-        </button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-6 py-3.5 hover:bg-catalyst-bg transition-colors">
+        <div className="flex items-center gap-2 flex-1 min-w-0 w-full">
+          <button onClick={() => setOpen(!open)} className="text-catalyst-muted hover:text-catalyst-dark transition-colors shrink-0">
+            {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+          </button>
 
-        <span className="flex-1 font-bold text-sm text-catalyst-dark">{topic.name}</span>
+          <span className="font-bold text-sm text-catalyst-dark truncate flex-1 min-w-0" title={topic.name}>{topic.name}</span>
 
-        <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            if (window.confirm(`Are you sure you want to delete the topic "${topic.name}"? This will delete all its subtopics and progress.`)) {
-              deleteTopic(subjectId, topic.id);
-            }
-          }}
-          className="text-catalyst-muted hover:text-red-500 p-1 transition-colors cursor-pointer mr-2"
-          title="Delete Topic"
-        >
-          <Trash2 size={14} />
-        </button>
-
-        {/* Confidence */}
-        <button 
-          onClick={cycleConfidence}
-          className={`text-[10px] font-black px-2.5 py-1 rounded-full hover:opacity-80 transition-opacity ${CONFIDENCE[topic.confidence]}`}
-        >
-          {topic.confidence}
-        </button>
-
-        {/* Stage Pills */}
-        <div className="flex items-center gap-1">
-          {STAGES.map((s, idx) => {
-            const currentIdx = STAGES.indexOf(topic.stage);
-            const isPast = idx < currentIdx;
-            const isCurrent = idx === currentIdx;
-            return (
-              <div key={s} title={s} className={`h-5 rounded-full text-[9px] font-black flex items-center justify-center transition-all ${
-                isCurrent ? `px-2.5 ${stageC.bg} ${stageC.text}` :
-                isPast ? 'w-5 bg-emerald-50' : 'w-5 bg-catalyst-bg'
-              }`}>
-                {isCurrent ? s : isPast ? '✓' : ''}
-              </div>
-            );
-          })}
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              if (window.confirm(`Are you sure you want to delete the topic "${topic.name}"? This will delete all its subtopics and progress.`)) {
+                deleteTopic(subjectId, topic.id);
+              }
+            }}
+            className="text-catalyst-muted hover:text-red-500 p-1 transition-colors cursor-pointer shrink-0 ml-1"
+            title="Delete Topic"
+          >
+            <Trash2 size={14} />
+          </button>
         </div>
 
-        {/* Progress */}
-        <div className="flex items-center gap-2.5 w-32">
-          <div className="progress-bar flex-1">
-            <div className="progress-fill" style={{ width: `${topic.completion || 0}%`, background: stageC.dot?.replace('bg-', '') === topic.stage ? '#10b981' : getColorFromStage(topic.stage) }}></div>
+        <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-4 w-full sm:w-auto border-t sm:border-t-0 pt-2.5 sm:pt-0 border-catalyst-border/40 sm:border-none">
+          {/* Confidence */}
+          <button 
+            onClick={cycleConfidence}
+            className={`text-[10px] font-black px-2.5 py-1 rounded-full hover:opacity-80 transition-opacity shrink-0 ${CONFIDENCE[topic.confidence]}`}
+          >
+            {topic.confidence}
+          </button>
+
+          {/* Stage Pills */}
+          <div className="flex items-center gap-1 shrink-0">
+            {STAGES.map((s, idx) => {
+              const currentIdx = STAGES.indexOf(topic.stage);
+              const isPast = idx < currentIdx;
+              const isCurrent = idx === currentIdx;
+              return (
+                <div key={s} title={s} className={`h-5 rounded-full text-[9px] font-black flex items-center justify-center transition-all ${
+                  isCurrent ? `px-2.5 ${stageC.bg} ${stageC.text}` :
+                  isPast ? 'w-5 bg-emerald-50' : 'w-5 bg-catalyst-bg'
+                }`}>
+                  {isCurrent ? s : isPast ? '✓' : ''}
+                </div>
+              );
+            })}
           </div>
-          <span className="text-[11px] font-black text-catalyst-dark w-7">{topic.completion || 0}%</span>
+
+          {/* Progress */}
+          <div className="flex items-center gap-2.5 w-28 sm:w-32 shrink-0">
+            <div className="progress-bar flex-1">
+              <div className="progress-fill" style={{ width: `${topic.completion || 0}%`, background: stageC.dot?.replace('bg-', '') === topic.stage ? '#10b981' : getColorFromStage(topic.stage) }}></div>
+            </div>
+            <span className="text-[11px] font-black text-catalyst-dark w-7 shrink-0">{topic.completion || 0}%</span>
+          </div>
         </div>
       </div>
 
@@ -1050,7 +1058,7 @@ const TopicRow = ({ subjectId, topic, isLast }) => {
 
           {/* Revisions Tab */}
           {activeTab === 'revisions' && (
-            <div className="px-2 flex items-start gap-6">
+            <div className="px-2 flex flex-col md:flex-row items-stretch md:items-start gap-4 md:gap-6">
               <div className="flex-1 bg-white p-4 rounded-xl border border-catalyst-border">
                 <div className="flex items-center justify-between mb-4">
                   <div>

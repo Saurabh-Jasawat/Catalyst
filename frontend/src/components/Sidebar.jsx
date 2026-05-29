@@ -21,13 +21,14 @@ const bottomItems = [
 
 const Sidebar = () => {
   const location = useLocation();
-  const { selectedExam, profileName, profileAvatarType, profileEmoji, profilePicture } = useAppContext();
+  const { selectedExam, profileName, profileAvatarType, profileEmoji, profilePicture, isSidebarOpen, setIsSidebarOpen } = useAppContext();
 
   const NavLink = ({ item }) => {
     const isActive = location.pathname === item.path;
     return (
       <Link
         to={item.path}
+        onClick={() => setIsSidebarOpen(false)}
         className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
           isActive
             ? 'bg-white/15 text-white shadow-sm'
@@ -41,10 +42,21 @@ const Sidebar = () => {
   };
 
   return (
-    <aside
-      className="w-60 flex flex-col h-full shrink-0"
-      style={{ background: '#16162a' }}
-    >
+    <>
+      {/* Sidebar Drawer Overlay for Mobile/Tablets */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-xs transition-opacity duration-300"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-60 flex flex-col h-full shrink-0 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-full lg:flex lg:flex-col ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        style={{ background: '#16162a' }}
+      >
       {/* Logo */}
       <div className="px-5 pt-7 pb-8">
         <div className="flex items-center gap-2">
@@ -93,7 +105,8 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 
